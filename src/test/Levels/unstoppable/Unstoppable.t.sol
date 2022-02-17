@@ -2,13 +2,13 @@
 pragma solidity >=0.8.0;
 
 import {DSTest} from "ds-test/test.sol";
-import {Utilities} from "../utils/Utilities.sol";
-import {console} from "../utils/Console.sol";
+import {Utilities} from "../../utils/Utilities.sol";
+import {console} from "../../utils/Console.sol";
 import {Vm} from "forge-std/Vm.sol";
 
-import {DamnValuableToken} from "../../DamnValuableToken.sol";
-import {UnstoppableLender} from "../../unstoppable/UnstoppableLender.sol";
-import {ReceiverUnstoppable} from "../../unstoppable/ReceiverUnstoppable.sol";
+import {DamnValuableToken} from "../../../DamnValuableToken.sol";
+import {UnstoppableLender} from "../../../Contracts/unstoppable/UnstoppableLender.sol";
+import {ReceiverUnstoppable} from "../../../Contracts/unstoppable/ReceiverUnstoppable.sol";
 
 contract Unstoppable is DSTest {
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
@@ -20,19 +20,22 @@ contract Unstoppable is DSTest {
     UnstoppableLender internal unstoppableLender;
     ReceiverUnstoppable internal receiverUnstoppable;
     DamnValuableToken internal dvt;
-    address payable internal deployer;
     address payable internal attacker;
     address payable internal someUser;
 
     function setUp() public {
         utils = new Utilities();
-        address payable[] memory users = utils.createUsers(3);
-        deployer = users[0];
-        attacker = users[1];
-        someUser = users[2];
+        address payable[] memory users = utils.createUsers(2);
+        attacker = users[0];
+        someUser = users[1];
+        vm.label(someUser, "User");
+        vm.label(attacker, "Attacker");
 
         dvt = new DamnValuableToken();
+        vm.label(address(dvt), "DVT");
+
         unstoppableLender = new UnstoppableLender(address(dvt));
+        vm.label(address(unstoppableLender), "Unstoppable Lender");
 
         dvt.approve(address(unstoppableLender), TOKENS_IN_POOL);
         unstoppableLender.depositTokens(TOKENS_IN_POOL);
@@ -46,6 +49,7 @@ contract Unstoppable is DSTest {
         receiverUnstoppable = new ReceiverUnstoppable(
             address(unstoppableLender)
         );
+        vm.label(address(receiverUnstoppable), "Receiver Unstoppable");
         receiverUnstoppable.executeFlashLoan(10);
         vm.stopPrank();
         console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
