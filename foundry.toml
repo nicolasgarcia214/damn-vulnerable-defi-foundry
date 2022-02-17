@@ -1,0 +1,8 @@
+[default]
+verbosity = 3
+
+## set only when the `hardhat` profile is selected
+[hardhat]
+src = "contracts"
+out = "artifacts"
+libs = ["node_modules"]
