@@ -6,7 +6,7 @@ import {Utilities} from "../../utils/Utilities.sol";
 import {console} from "../../utils/Console.sol";
 import {Vm} from "forge-std/Vm.sol";
 
-import {DamnValuableToken} from "../../../DamnValuableToken.sol";
+import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
 import {TrusterLenderPool} from "../../../Contracts/truster/TrusterLenderPool.sol";
 
 contract Truster is DSTest {
