@@ -55,6 +55,7 @@ contract Selfie is DSTest {
     }
 
     function testAfter() public {
+        // Attacker has taken all tokens from the pool
         assertEq(dvtSnapshot.balanceOf(attacker), TOKENS_IN_POOL);
         assertEq(dvtSnapshot.balanceOf(address(selfiePool)), 0);
     }

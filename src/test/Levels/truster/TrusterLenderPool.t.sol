@@ -20,6 +20,7 @@ contract Truster is DSTest {
     address payable internal attacker;
 
     function setUp() public {
+        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
         utils = new Utilities();
         address payable[] memory users = utils.createUsers(1);
         attacker = users[0];
@@ -46,6 +47,7 @@ contract Truster is DSTest {
     }
 
     function testAfter() public {
+        // Attacker has taken all tokens from the pool
         assertEq(dvt.balanceOf(address(trusterLenderPool)), 0);
         assertEq(dvt.balanceOf(address(attacker)), TOKENS_IN_POOL);
     }

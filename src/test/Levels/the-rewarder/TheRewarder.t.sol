@@ -51,10 +51,12 @@ contract TheRewarder is DSTest {
         flashLoanerPool = new FlashLoanerPool(address(dvt));
         vm.label(address(flashLoanerPool), "Flash Loaner Pool");
 
+        // Set initial token balance of the pool offering flash loans
         dvt.transfer(address(flashLoanerPool), TOKENS_IN_LENDER_POOL);
 
         theRewarderPool = new TheRewarderPool(address(dvt));
 
+        // Alice, Bob, Charlie and David deposit 100 tokens each
         for (uint8 i; i < 4; i++) {
             dvt.transfer(users[i], USER_DEPOSIT);
             vm.startPrank(users[i]);
@@ -70,7 +72,8 @@ contract TheRewarder is DSTest {
         assertEq(theRewarderPool.accToken().totalSupply(), USER_DEPOSIT * 4);
         assertEq(theRewarderPool.rewardToken().totalSupply(), 0);
 
-        vm.warp(block.timestamp + 432000); // 5 days
+        // Advance time 5 days so that depositors can get rewards
+        vm.warp(block.timestamp + 5 days); // 5 days
 
         for (uint8 i; i < 4; i++) {
             vm.prank(users[i]);
@@ -96,8 +99,9 @@ contract TheRewarder is DSTest {
     }
 
     function testAfter() public {
-        assertEq(theRewarderPool.roundNumber(), 3); // Two rounds should have occurred so far
+        assertEq(theRewarderPool.roundNumber(), 3); // Only one round should have taken place
         for (uint8 i; i < 4; i++) {
+            // Users should get negligible rewards this round
             vm.prank(users[i]);
             theRewarderPool.distributeRewards();
             uint256 rewardPerUser = theRewarderPool.rewardToken().balanceOf(
@@ -106,13 +110,17 @@ contract TheRewarder is DSTest {
             uint256 delta = rewardPerUser - 25e18;
             assertLt(delta, 1e16);
         }
+        // Rewards must have been issued to the attacker account
         assertGt(theRewarderPool.rewardToken().totalSupply(), 100e18);
         uint256 rewardAttacker = theRewarderPool.rewardToken().balanceOf(
             attacker
         );
 
+        // The amount of rewards earned should be really close to 100 tokens
         uint256 deltaAttacker = 100e18 - rewardAttacker;
         assertLt(deltaAttacker, 1e17);
+
+        // Attacker finishes with zero DVT tokens in balance
         assertEq(dvt.balanceOf(attacker), 0);
     }
 }

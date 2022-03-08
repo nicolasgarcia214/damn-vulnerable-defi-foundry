@@ -24,6 +24,8 @@ contract Unstoppable is DSTest {
     address payable internal someUser;
 
     function setUp() public {
+        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
+
         utils = new Utilities();
         address payable[] memory users = utils.createUsers(2);
         attacker = users[0];
@@ -45,6 +47,7 @@ contract Unstoppable is DSTest {
         assertEq(dvt.balanceOf(address(unstoppableLender)), TOKENS_IN_POOL);
         assertEq(dvt.balanceOf(attacker), INITIAL_ATTACKER_TOKEN_BALANCE);
 
+        // Show it's possible for someUser to take out a flash loan
         vm.startPrank(someUser);
         receiverUnstoppable = new ReceiverUnstoppable(
             address(unstoppableLender)
@@ -63,6 +66,7 @@ contract Unstoppable is DSTest {
     }
 
     function testFailAfter() public {
+        // It is no longer possible to execute flash loans
         vm.startPrank(someUser);
         receiverUnstoppable.executeFlashLoan(10);
         vm.stopPrank();

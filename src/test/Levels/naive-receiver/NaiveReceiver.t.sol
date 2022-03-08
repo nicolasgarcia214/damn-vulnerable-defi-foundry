@@ -59,6 +59,7 @@ contract NaiveReceiver is DSTest {
     }
 
     function testAfter() public {
+        // All ETH has been drained from the receiver
         assertEq(address(flashLoanReceiver).balance, 0);
         assertEq(
             address(naiveReceiverLenderPool).balance,
