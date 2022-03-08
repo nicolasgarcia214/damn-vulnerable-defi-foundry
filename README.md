@@ -1,72 +1,46 @@
-# Forge Template ⚒️
+# Damn Vulnerable DeFi - Foundry Version ⚒️
 
-A template that pulled features and utilities from many other implementations to speed up your development process with Forge.
+Visit [damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz)
 
-## Foundry Installation
+### Acknowledgement
+*Big thanks to [Tincho](https://twitter.com/tinchoabbate) who created the [first version of this game](https://github.com/tinchoabbate/damn-vulnerable-defi/tree/v2.0.0) and to all the fellows behind the [Foundry Framework](https://github.com/gakonst/foundry/graphs/contributors)*
+
+Damn Vulnerable DeFi is the wargame to learn offensive security of DeFi smart contracts.
+
+Throughout numerous challenges you will build the skills to become a bug hunter or security auditor in the space. 🕵️‍♂️
+
+## How To Play 🕹️
+
+1.  **Install Foundry**
 
 First run the command below to get foundryup, the Foundry toolchain installer:
 
-```
+``` bash
 curl -L https://foundry.paradigm.xyz | bash
 ```
 
 Then, in a new terminal session or after reloading your PATH, run it to get the latest forge and cast binaries:
 
-```
+``` console
 foundryup
 ```
 Advanced ways to use `foundryup`, and other documentation, can be found in the [foundryup package](./foundryup/README.md)
 
-## Getting Started
-
+2. **Clone This Repo**
+3. **Code your solutions in the provided `[NAME_OF_THE_LEVEL].t.sol` files (inside each level's folder in the test folder)**
+4. **Run your exploit for a challenge**
 ```
-mkdir new-project
-cd new-project
-forge init --template https://github.com/nicolasgarcia214/forge-template
-git submodule update --init --recursive  ## initialize submodule dependencies
-yarn install ## install development dependencies
-forge build
-forge test
+forge test --match-test [NAME_OF_THE_TEST_WITH_YOUR_SOLUTION] --match-contract [CONTRACT_LEVEL_NAME]
 ```
+If the challenge is executed successfully, you've passed!🙌🙌
 
-## Features
-
-### Testing Utilities
-
-Includes a `Utilities.sol` contract with common testing methods (like creating users with an initial balance), as well as various other utility contracts.
+### Tips and tricks ✨
+- In all challenges you must use the account called attacker. In Forge, you can use the [cheat code](https://github.com/gakonst/foundry/tree/master/forge#cheat-codes) `prank` or `startPrank`.
+- To code the solutions, you may need to refer to [Forge docs](https://onbjerg.github.io/foundry-book/forge/index.html).
+- In some cases, you may need to code and deploy custom smart contracts.
 
 ### Preinstalled dependencies
 
 `ds-test` for testing, `forge-std` for better cheatcode UX, and `openzeppelin-contracts` for contract implementations. 
 
-### Install dependencies
-
-Use `forge install [OPTIONS] [DEPENDENCIES]` _(installs one or more dependencies as git submodules)_
-
-### Update dependencies
-
-You can update a specific dependency to the latest commit on the version you have specified using `forge update [OPTIONS] [DEPENDENCIES]`
-
-### Linting
-
-Pre-configured `solhint` and `prettier-plugin-solidity`. Can be run by
-
-```
-yarn lint
-yarn format
-```
-
-### CI with Github Actions
-
-Automatically run linting and tests on pull requests.
-
-### Default Configuration
-
-Including `.gitignore`, `.vscode`, `remappings.txt`, `foundry.toml` and `.prettierignore`
-
-### Project Configuration
-Forge can be configured using a configuration file called `foundry.toml`, which is placed in the root of your project.
-For more information, visit this link: https://onbjerg.github.io/foundry-book/reference/config.html
-
-### Acknowledgement
-> This template is based on the following repo: https://github.com/FrankieIsLost/forge-template.
+follow me on [Twitter!!](https://twitter.com/ngp2311)
