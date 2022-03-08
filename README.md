@@ -28,7 +28,7 @@ Advanced ways to use `foundryup`, and other documentation, can be found in the [
 
 2. **Clone This Repo and install dependencies**
 ``` 
-git clone git@github.com:nicolasgarcia214/damn-vulnerable-defi-foundry.git
+git clone https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry.git
 cd damn-vulnerable-defi-foundry
 git submodule update --init --recursive
 yarn install
