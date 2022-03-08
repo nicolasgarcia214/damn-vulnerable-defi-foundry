@@ -1,22 +1,24 @@
 {
-  "name": "forge-template",
+  "name": "damn-vulnerable-defi-foundry-version",
   "version": "1.0.0",
-  "description": "Forge template to speed up your development process",
+  "description": "Damn Vulnerable DeFi Foundry Version",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicolasgarcia214/forge-template.git"
+    "url": "git+https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry.git"
   },
   "keywords": [
     "Forge",
     "Solidity",
-    "Foundry"
+    "Foundry",
+    "CTF",
+    "Smart contracts"
   ],
   "author": "Nicolás García",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nicolasgarcia214/forge-template/issues"
+    "url": "https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry/issues"
   },
-  "homepage": "https://github.com/nicolasgarcia214/forge-template#readme",
+  "homepage": "https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry#readme",
   "scripts": {
     "format": "prettier --write 'src/**/*.sol'",
     "format:check": "prettier --check 'src/**/*.sol'",
