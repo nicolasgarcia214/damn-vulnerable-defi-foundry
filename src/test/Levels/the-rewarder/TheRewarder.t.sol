@@ -42,7 +42,7 @@ contract TheRewarder is DSTest {
         vm.label(alice, "Alice");
         vm.label(bob, "Bob");
         vm.label(charlie, "Charlie");
-        vm.label(david, "Charlie");
+        vm.label(david, "David");
         vm.label(attacker, "Attacker");
 
         dvt = new DamnValuableToken();
