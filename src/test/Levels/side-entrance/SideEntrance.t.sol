@@ -30,8 +30,16 @@ contract SideEntrance is DSTest {
         vm.deal(address(sideEntranceLenderPool), ETHER_IN_POOL);
 
         assertEq(address(sideEntranceLenderPool).balance, ETHER_IN_POOL);
-
+        
+        /// Burn Attacker's ETH starting balance
+        vm.startPrank(attacker);
+        (bool sent, bytes memory data) = payable(address(0)).call{
+            value: 100 ether
+        }("");
+        require(sent, "Failed to send Ether");
+        vm.stopPrank();
         attackerInitialEthBalance = address(attacker).balance;
+
         assertEq(attackerInitialEthBalance, 0);
 
         console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
