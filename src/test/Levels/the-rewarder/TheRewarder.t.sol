@@ -95,10 +95,10 @@ contract TheRewarder is DSTest {
         /** EXPLOIT START **/
 
         /** EXPLOIT END **/
-        testAfter();
+        validation();
     }
 
-    function testAfter() public {
+    function validation() internal {
         assertEq(theRewarderPool.roundNumber(), 3); // Only one round should have taken place
         for (uint8 i; i < 4; i++) {
             // Users should get negligible rewards this round

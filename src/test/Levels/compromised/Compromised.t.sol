@@ -82,10 +82,10 @@ contract Compromised is DSTest {
         /** EXPLOIT START **/
 
         /** EXPLOIT END **/
-        testAfter();
+        validation();
     }
 
-    function testAfter() public {
+    function validation() internal {
         // Exchange must have lost all ETH
         assertEq(address(exchange).balance, 0);
 

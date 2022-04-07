@@ -58,14 +58,15 @@ contract Unstoppable is DSTest {
         console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
     }
 
-    function testFailExploit() public {
+    function testExploit() public {
         /** EXPLOIT START **/
 
         /** EXPLOIT END **/
-        testFailAfter();
+        vm.expectRevert(UnstoppableLender.AssertionViolated.selector);
+        validation();
     }
 
-    function testFailAfter() public {
+    function validation() internal {
         // It is no longer possible to execute flash loans
         vm.startPrank(someUser);
         receiverUnstoppable.executeFlashLoan(10);
