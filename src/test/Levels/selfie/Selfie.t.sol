@@ -51,10 +51,10 @@ contract Selfie is DSTest {
         /** EXPLOIT START **/
 
         /** EXPLOIT END **/
-        testAfter();
+        validation();
     }
 
-    function testAfter() public {
+    function validation() internal {
         // Attacker has taken all tokens from the pool
         assertEq(dvtSnapshot.balanceOf(attacker), TOKENS_IN_POOL);
         assertEq(dvtSnapshot.balanceOf(address(selfiePool)), 0);

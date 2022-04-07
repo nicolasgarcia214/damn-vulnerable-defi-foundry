@@ -40,10 +40,10 @@ contract SideEntrance is DSTest {
         /** EXPLOIT START **/
 
         /** EXPLOIT END **/
-        testAfter();
+        validation();
     }
 
-    function testAfter() public {
+    function validation() internal {
         assertEq(address(sideEntranceLenderPool).balance, 0);
         assertGt(attacker.balance, attackerInitialEthBalance);
     }

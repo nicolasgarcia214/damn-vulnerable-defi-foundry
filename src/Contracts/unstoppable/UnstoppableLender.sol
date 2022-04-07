@@ -17,6 +17,7 @@ contract UnstoppableLender is ReentrancyGuard {
     error MustBorrowOneTokenMinimum();
     error NotEnoughTokensInPool();
     error FlashLoanHasNotBeenPaidBack();
+    error AssertionViolated();
 
     constructor(address tokenAddress) {
         if (tokenAddress == address(0)) revert TokenAddressCannotBeZero();
@@ -37,7 +38,7 @@ contract UnstoppableLender is ReentrancyGuard {
         if (balanceBefore < borrowAmount) revert NotEnoughTokensInPool();
 
         // Ensured by the protocol via the `depositTokens` function
-        assert(poolBalance == balanceBefore);
+        if (poolBalance != balanceBefore) revert AssertionViolated();
 
         damnValuableToken.transfer(msg.sender, borrowAmount);
 
