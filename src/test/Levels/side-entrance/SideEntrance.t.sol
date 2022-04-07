@@ -32,7 +32,6 @@ contract SideEntrance is DSTest {
         assertEq(address(sideEntranceLenderPool).balance, ETHER_IN_POOL);
 
         attackerInitialEthBalance = address(attacker).balance;
-        assertEq(attackerInitialEthBalance, 0);
 
         console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
     }
