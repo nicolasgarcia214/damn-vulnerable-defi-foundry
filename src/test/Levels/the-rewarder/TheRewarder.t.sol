@@ -87,6 +87,9 @@ contract TheRewarder is DSTest {
         assertEq(theRewarderPool.rewardToken().totalSupply(), 100e18);
         assertEq(dvt.balanceOf(attacker), 0); // Attacker starts with zero DVT tokens in balance
         assertEq(theRewarderPool.roundNumber(), 2); // Two rounds should have occurred so far
+        
+        // Advance time 5 days so that attacker can get rewards
+        vm.warp(block.timestamp + 5 days);
 
         console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
     }
