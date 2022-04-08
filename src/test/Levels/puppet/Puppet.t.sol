@@ -44,6 +44,7 @@ contract Puppet is DSTest, stdCheats {
     uint256 internal constant DEADLINE = 10_000_000;
 
     UniswapV1Exchange internal uniswapV1ExchangeTemplate;
+    UniswapV1Exchange internal uniswapExchange;
     UniswapV1Factory internal uniswapV1Factory;
 
     DamnValuableToken internal dvt;
@@ -74,7 +75,7 @@ contract Puppet is DSTest, stdCheats {
         // Deploy factory, initializing it with the address of the template exchange
         uniswapV1Factory.initializeFactory(address(uniswapV1ExchangeTemplate));
 
-        UniswapV1Exchange uniswapExchange = UniswapV1Exchange(
+        uniswapExchange = UniswapV1Exchange(
             uniswapV1Factory.createExchange(address(dvt))
         );
 
