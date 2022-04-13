@@ -64,12 +64,12 @@ contract Puppet is DSTest, stdCheats {
         vm.label(address(dvt), "DVT");
 
         uniswapV1Factory = UniswapV1Factory(
-            deployCode("./src/build-uniswap-v1/UniswapV1Factory.json")
+            deployCode("./src/build-uniswap/v1/UniswapV1Factory.json")
         );
 
         // Deploy a exchange that will be used as the factory template
         uniswapV1ExchangeTemplate = UniswapV1Exchange(
-            deployCode("./src/build-uniswap-v1/UniswapV1Exchange.json")
+            deployCode("./src/build-uniswap/v1/UniswapV1Exchange.json")
         );
 
         // Deploy factory, initializing it with the address of the template exchange
