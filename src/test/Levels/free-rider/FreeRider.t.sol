@@ -11,10 +11,7 @@ import {FreeRiderNFTMarketplace} from "../../../Contracts/free-rider/FreeRiderNF
 import {IUniswapV2Router02, IUniswapV2Factory, IUniswapV2Pair} from "../../../Contracts/free-rider/Interfaces.sol";
 import {DamnValuableNFT} from "../../../Contracts/DamnValuableNFT.sol";
 import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {
-    
-    
-    9} from "../../../Contracts/WETH9.sol";
+import {WETH9} from "../../../Contracts/WETH9.sol";
 
 contract FreeRider is DSTest, stdCheats {
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
