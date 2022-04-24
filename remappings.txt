@@ -2,3 +2,5 @@ forge-std/=lib/forge-std/src/
 openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/
 ds-test/=lib/ds-test/src/
 gnosis/=lib/safe-contracts/contracts/
+uniswap-v2-periphery/=lib/v2-periphery/contracts/libraries
+uniswap-v2-core/=lib/v2-core/contracts/
