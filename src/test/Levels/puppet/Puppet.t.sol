@@ -18,6 +18,8 @@ interface UniswapV1Exchange {
     ) external payable returns (uint256);
 
     function balanceOf(address _owner) external view returns (uint256);
+    
+    function tokenToEthSwapInput(uint256,uint256,uint256) external;
 
     function getTokenToEthInputPrice(uint256 tokens_sold)
         external
