@@ -19,7 +19,11 @@ interface UniswapV1Exchange {
 
     function balanceOf(address _owner) external view returns (uint256);
     
-    function tokenToEthSwapInput(uint256,uint256,uint256) external;
+    function tokenToEthSwapInput(
+        uint256 tokens_sold,
+        uint256 min_eth,
+        uint256 deadline
+    ) external returns (uint256);
 
     function getTokenToEthInputPrice(uint256 tokens_sold)
         external
