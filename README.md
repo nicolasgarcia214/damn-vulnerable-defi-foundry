@@ -38,6 +38,12 @@ yarn install
 ```
 forge test --match-test [NAME_OF_THE_TEST_WITH_YOUR_SOLUTION] --match-contract [CONTRACT_LEVEL_NAME]
 ```
+or
+```
+./run.sh [LEVEL_FOLDER_NAME]
+./run.sh [CHALLENGE_NUMBER]
+./run.sh [4_FIRST_LETTER_OF_NAME] 
+```
 If the challenge is executed successfully, you've passed!🙌🙌
 
 ### Tips and tricks ✨
