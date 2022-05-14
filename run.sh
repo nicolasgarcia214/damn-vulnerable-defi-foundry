@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+# This script can be used to simplify the execution of tests. 
+# You can use the level folder name, the challenge number, or
+# the first four letters of the name.
+
+
 case $1 in
 
   unstoppable | 1 | unst)
