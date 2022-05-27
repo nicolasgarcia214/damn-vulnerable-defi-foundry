@@ -1,6 +1,6 @@
 # Damn Vulnerable DeFi - Foundry Version ⚒️
 
-[![Twitter: ngp2311](https://img.shields.io/twitter/follow/ngp2311.svg?style=social)](https://twitter.com/ngp2311)
+![Twitter: ngp2311](https://img.shields.io/twitter/follow/ngp2311?label=Follow%20me%20%40ngp2311&style=social)
 
 Visit [damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz)
 
@@ -56,5 +56,3 @@ If the challenge is executed successfully, you've passed!🙌🙌
 ### Preinstalled dependencies
 
 `ds-test` for testing, `forge-std` for better cheatcode UX, and `openzeppelin-contracts` for contract implementations. 
-
-follow me on [Twitter!!](https://twitter.com/ngp2311)
