@@ -1,6 +1,6 @@
 # Damn Vulnerable DeFi - Foundry Version ⚒️
 
-![Twitter: ngp2311](https://img.shields.io/twitter/follow/ngp2311?label=Follow%20me%20%40ngp2311&style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/ngp2311?label=Follow%20me%20%40ngp2311&style=social)
 
 Visit [damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz)
 
