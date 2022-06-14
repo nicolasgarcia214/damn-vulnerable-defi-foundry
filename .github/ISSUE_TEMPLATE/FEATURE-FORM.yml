@@ -1,0 +1,14 @@
+name: Feature request
+description: Suggest an idea for Damn Vulnerable DeFi (Foundry Version)
+labels: ["enhancement"]
+body:
+  - type: textarea
+    attributes:
+      label: Motivation
+      description: Tell us about your idea 💪!
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Details
+      description: Please describe your feature request in detail.
