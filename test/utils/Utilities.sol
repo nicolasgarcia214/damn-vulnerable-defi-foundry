@@ -3,28 +3,8 @@ pragma solidity >=0.8.0;
 
 import "forge-std/Test.sol";
 
-interface IERC20 {
-    function balanceOf(address) external view returns (uint256);
-}
-
 contract Utilities is Test {
     bytes32 internal nextUser = keccak256(abi.encodePacked("user address"));
-    using stdStorage for StdStorage;
-
-    // StdStorage internal stdstore;
-
-    /// @notice Modifies the storage of a token to mint new tokens to an address.
-    function writeTokenBalance(
-        address who,
-        address token,
-        uint256 amt
-    ) external {
-        stdstore
-            .target(token)
-            .sig(IERC20(token).balanceOf.selector)
-            .with_key(who)
-            .checked_write(amt);
-    }
 
     function getNextUserAddress() external returns (address payable) {
         //bytes32 to address conversion
