@@ -1,18 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {UnstoppableLender} from "../../../Contracts/unstoppable/UnstoppableLender.sol";
-import {ReceiverUnstoppable} from "../../../Contracts/unstoppable/ReceiverUnstoppable.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {UnstoppableLender} from "../../../src/Contracts/unstoppable/UnstoppableLender.sol";
+import {ReceiverUnstoppable} from "../../../src/Contracts/unstoppable/ReceiverUnstoppable.sol";
 
-contract Unstoppable is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract Unstoppable is Test {
     uint256 internal constant TOKENS_IN_POOL = 1_000_000e18;
     uint256 internal constant INITIAL_ATTACKER_TOKEN_BALANCE = 100e18;
 
@@ -60,7 +56,6 @@ contract Unstoppable is DSTest {
 
     function testExploit() public {
         /** EXPLOIT START **/
-
         /** EXPLOIT END **/
         vm.expectRevert(UnstoppableLender.AssertionViolated.selector);
         validation();

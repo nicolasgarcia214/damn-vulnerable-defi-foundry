@@ -1,20 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
-import {stdCheats} from "forge-std/stdlib.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {WalletRegistry} from "../../../Contracts/backdoor/WalletRegistry.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {WalletRegistry} from "../../../src/Contracts/backdoor/WalletRegistry.sol";
 import {GnosisSafe} from "gnosis/GnosisSafe.sol";
 import {GnosisSafeProxyFactory} from "gnosis/proxies/GnosisSafeProxyFactory.sol";
 
-contract Backdoor is DSTest, stdCheats {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract Backdoor is Test {
     uint256 internal constant AMOUNT_TOKENS_DISTRIBUTED = 40e18;
     uint256 internal constant NUM_USERS = 4;
 

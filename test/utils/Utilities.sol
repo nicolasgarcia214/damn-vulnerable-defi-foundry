@@ -1,19 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
-import {Vm} from "forge-std/Vm.sol";
-import {stdStorage, StdStorage} from "forge-std/stdlib.sol";
+import "forge-std/Test.sol";
 
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
 }
 
-contract Utilities is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
+contract Utilities is Test {
     bytes32 internal nextUser = keccak256(abi.encodePacked("user address"));
     using stdStorage for StdStorage;
-    StdStorage internal stdstore;
+
+    // StdStorage internal stdstore;
 
     /// @notice Modifies the storage of a token to mint new tokens to an address.
     function writeTokenBalance(

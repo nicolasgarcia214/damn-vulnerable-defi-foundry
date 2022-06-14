@@ -1,18 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableTokenSnapshot} from "../../../Contracts/DamnValuableTokenSnapshot.sol";
-import {SimpleGovernance} from "../../../Contracts/selfie/SimpleGovernance.sol";
-import {SelfiePool} from "../../../Contracts/selfie/SelfiePool.sol";
+import {DamnValuableTokenSnapshot} from "../../../src/Contracts/DamnValuableTokenSnapshot.sol";
+import {SimpleGovernance} from "../../../src/Contracts/selfie/SimpleGovernance.sol";
+import {SelfiePool} from "../../../src/Contracts/selfie/SelfiePool.sol";
 
-contract Selfie is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract Selfie is Test {
     uint256 internal constant TOKEN_INITIAL_SUPPLY = 2_000_000e18;
     uint256 internal constant TOKENS_IN_POOL = 1_500_000e18;
 

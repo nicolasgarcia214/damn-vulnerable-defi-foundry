@@ -1,16 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
+import "forge-std/Test.sol";
 
-import {SideEntranceLenderPool} from "../../../Contracts/side-entrance/SideEntranceLenderPool.sol";
+import {SideEntranceLenderPool} from "../../../src/Contracts/side-entrance/SideEntranceLenderPool.sol";
 
-contract SideEntrance is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract SideEntrance is Test {
     uint256 internal constant ETHER_IN_POOL = 1_000e18;
 
     Utilities internal utils;

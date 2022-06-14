@@ -1,14 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
-import {stdCheats} from "forge-std/stdlib.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {PuppetPool} from "../../../Contracts/puppet/PuppetPool.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {PuppetPool} from "../../../src/Contracts/puppet/PuppetPool.sol";
 
 interface UniswapV1Exchange {
     function addLiquidity(
@@ -18,7 +15,7 @@ interface UniswapV1Exchange {
     ) external payable returns (uint256);
 
     function balanceOf(address _owner) external view returns (uint256);
-    
+
     function tokenToEthSwapInput(
         uint256 tokens_sold,
         uint256 min_eth,
@@ -37,9 +34,7 @@ interface UniswapV1Factory {
     function createExchange(address token) external returns (address);
 }
 
-contract Puppet is DSTest, stdCheats {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract Puppet is Test {
     // Uniswap exchange will start with 10 DVT and 10 ETH in liquidity
     uint256 internal constant UNISWAP_INITIAL_TOKEN_RESERVE = 10e18;
     uint256 internal constant UNISWAP_INITIAL_ETH_RESERVE = 10e18;

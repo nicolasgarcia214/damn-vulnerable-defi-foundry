@@ -1,21 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
-import {stdCheats} from "forge-std/stdlib.sol";
+import "forge-std/Test.sol";
 
-import {FreeRiderBuyer} from "../../../Contracts/free-rider/FreeRiderBuyer.sol";
-import {FreeRiderNFTMarketplace} from "../../../Contracts/free-rider/FreeRiderNFTMarketplace.sol";
-import {IUniswapV2Router02, IUniswapV2Factory, IUniswapV2Pair} from "../../../Contracts/free-rider/Interfaces.sol";
-import {DamnValuableNFT} from "../../../Contracts/DamnValuableNFT.sol";
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {WETH9} from "../../../Contracts/WETH9.sol";
+import {FreeRiderBuyer} from "../../../src/Contracts/free-rider/FreeRiderBuyer.sol";
+import {FreeRiderNFTMarketplace} from "../../../src/Contracts/free-rider/FreeRiderNFTMarketplace.sol";
+import {IUniswapV2Router02, IUniswapV2Factory, IUniswapV2Pair} from "../../../src/Contracts/free-rider/Interfaces.sol";
+import {DamnValuableNFT} from "../../../src/Contracts/DamnValuableNFT.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {WETH9} from "../../../src/Contracts/WETH9.sol";
 
-contract FreeRider is DSTest, stdCheats {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract FreeRider is Test {
     // The NFT marketplace will have 6 tokens, at 15 ETH each
     uint256 internal constant NFT_PRICE = 15 ether;
     uint8 internal constant AMOUNT_OF_NFTS = 6;

@@ -1,17 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {TrusterLenderPool} from "../../../Contracts/truster/TrusterLenderPool.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {TrusterLenderPool} from "../../../src/Contracts/truster/TrusterLenderPool.sol";
 
-contract Truster is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract Truster is Test {
     uint256 internal constant TOKENS_IN_POOL = 1_000_000e18;
 
     Utilities internal utils;

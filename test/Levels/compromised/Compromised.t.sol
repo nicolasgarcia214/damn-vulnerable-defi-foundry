@@ -1,18 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
+import "forge-std/Test.sol";
 
-import {Exchange} from "../../../Contracts/compromised/Exchange.sol";
-import {TrustfulOracle} from "../../../Contracts/compromised/TrustfulOracle.sol";
-import {TrustfulOracleInitializer} from "../../../Contracts/compromised/TrustfulOracleInitializer.sol";
-import {DamnValuableNFT} from "../../../Contracts/DamnValuableNFT.sol";
+import {Exchange} from "../../../src/Contracts/compromised/Exchange.sol";
+import {TrustfulOracle} from "../../../src/Contracts/compromised/TrustfulOracle.sol";
+import {TrustfulOracleInitializer} from "../../../src/Contracts/compromised/TrustfulOracleInitializer.sol";
+import {DamnValuableNFT} from "../../../src/Contracts/DamnValuableNFT.sol";
 
-contract Compromised is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract Compromised is Test {
     uint256 internal constant EXCHANGE_INITIAL_ETH_BALANCE = 9990e18;
     uint256 internal constant INITIAL_NFT_PRICE = 999e18;
 

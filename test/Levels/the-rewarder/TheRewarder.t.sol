@@ -1,20 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {TheRewarderPool} from "../../../Contracts/the-rewarder/TheRewarderPool.sol";
-import {RewardToken} from "../../../Contracts/the-rewarder/RewardToken.sol";
-import {AccountingToken} from "../../../Contracts/the-rewarder/AccountingToken.sol";
-import {FlashLoanerPool} from "../../../Contracts/the-rewarder/FlashLoanerPool.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {TheRewarderPool} from "../../../src/Contracts/the-rewarder/TheRewarderPool.sol";
+import {RewardToken} from "../../../src/Contracts/the-rewarder/RewardToken.sol";
+import {AccountingToken} from "../../../src/Contracts/the-rewarder/AccountingToken.sol";
+import {FlashLoanerPool} from "../../../src/Contracts/the-rewarder/FlashLoanerPool.sol";
 
-contract TheRewarder is DSTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract TheRewarder is Test {
     uint256 internal constant TOKENS_IN_LENDER_POOL = 1_000_000e18;
     uint256 internal constant USER_DEPOSIT = 100e18;
 
