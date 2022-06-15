@@ -23,6 +23,3 @@ jobs:
 
       - name: Run lint check
         run: npm run lint:check
-
-      - name: Run tests
-        run: forge test || ${{ matrix.experimental }}
