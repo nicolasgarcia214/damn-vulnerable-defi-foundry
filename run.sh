@@ -55,6 +55,10 @@ case $1 in
 #    forge test --match-contract Climber
 #    ;;
 
+  junior-miners | 13 | juni)
+    forge test --match-contract JuniorMiners
+    ;;
+
   *)
     echo "Invalid input use either the challenge number, the name of the contract folder, or the first 4 letter of the name (lowercase)"
     ;;
