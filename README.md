@@ -1,5 +1,11 @@
 # Damn Vulnerable DeFi - Foundry Version ⚒️
 
+![Github Actions][gha-badge] [![Telegram Support][tg-support-badge]][tg-support-url]
+
+[gha-badge]: https://img.shields.io/github/workflow/status/nicolasgarcia214/damn-vulnerable-defi-foundry/CI
+[tg-support-badge]: https://img.shields.io/endpoint?color=neon&logo=telegram&label=support&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Ffoundry_support
+[tg-support-url]: https://t.me/foundry_support
+
 [![Twitter Follow](https://img.shields.io/twitter/follow/ngp2311?label=Follow%20me%20%40ngp2311&style=social)](https://twitter.com/ngp2311)
 
 Visit [damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz)
