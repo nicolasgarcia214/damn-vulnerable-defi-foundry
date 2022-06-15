@@ -25,4 +25,4 @@ jobs:
         run: npm run lint:check
 
       - name: Run tests
-        run: forge test
+        run: forge test || ${{ matrix.experimental }}
