@@ -126,7 +126,7 @@ contract Puppet is Test {
 
     function validation() internal {
         // Attacker has taken all tokens from the pool
-        assertEq(dvt.balanceOf(attacker), POOL_INITIAL_TOKEN_BALANCE);
+        assertGt(dvt.balanceOf(attacker), POOL_INITIAL_TOKEN_BALANCE);
         assertEq(dvt.balanceOf(address(puppetPool)), 0);
     }
 
