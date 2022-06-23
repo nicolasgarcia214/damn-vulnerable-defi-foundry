@@ -1,0 +1,18 @@
+name: Bug report
+description: Report a bug in OpenZeppelin Contracts
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check if the bug has been previously reported to the issue tracker.
+  - type: input
+    attributes:
+      label: What version of Foundry are you on?
+      placeholder: "Run forge --version and paste the output here"
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: Tell us what you were trying to do and what happened instead. Include as much information as you think is relevant. Keep in mind that transactions can fail for many reasons; context is key here.
+    validations:
+      required: true

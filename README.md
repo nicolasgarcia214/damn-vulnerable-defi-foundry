@@ -1,5 +1,13 @@
 # Damn Vulnerable DeFi - Foundry Version ⚒️
 
+![Github Actions][gha-badge] [![Telegram Support][tg-support-badge]][tg-support-url]
+
+[gha-badge]: https://img.shields.io/github/workflow/status/nicolasgarcia214/damn-vulnerable-defi-foundry/CI
+[tg-support-badge]: https://img.shields.io/endpoint?color=neon&logo=telegram&label=support&style=flat-square&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Ffoundry_support
+[tg-support-url]: https://t.me/foundry_support
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/ngp2311?label=Follow%20me%20%40ngp2311&style=social)](https://twitter.com/ngp2311)
+
 Visit [damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz)
 
 ### Acknowledgement
@@ -30,13 +38,19 @@ Advanced ways to use `foundryup`, and other documentation, can be found in the [
 ``` 
 git clone https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry.git
 cd damn-vulnerable-defi-foundry
-git submodule update --init --recursive
+forge install
 yarn install
 ```
 3. **Code your solutions in the provided `[NAME_OF_THE_LEVEL].t.sol` files (inside each level's folder in the test folder)**
 4. **Run your exploit for a challenge**
 ```
-forge test --match-test [NAME_OF_THE_TEST_WITH_YOUR_SOLUTION] --match-contract [CONTRACT_LEVEL_NAME]
+make [CONTRACT_LEVEL_NAME]
+```
+or
+```
+./run.sh [LEVEL_FOLDER_NAME]
+./run.sh [CHALLENGE_NUMBER]
+./run.sh [4_FIRST_LETTER_OF_NAME] 
 ```
 If the challenge is executed successfully, you've passed!🙌🙌
 
@@ -48,5 +62,3 @@ If the challenge is executed successfully, you've passed!🙌🙌
 ### Preinstalled dependencies
 
 `ds-test` for testing, `forge-std` for better cheatcode UX, and `openzeppelin-contracts` for contract implementations. 
-
-follow me on [Twitter!!](https://twitter.com/ngp2311)
