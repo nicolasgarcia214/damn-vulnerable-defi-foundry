@@ -40,7 +40,7 @@ case $1 in
     ;;
 
   puppet-v2 | 9 | pupp2)
-    forge test --match-contract Puppetv2
+    forge test --match-contract PuppetV2
     ;;
 
   free-rider | 10 | free)

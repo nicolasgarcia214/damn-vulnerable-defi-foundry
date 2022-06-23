@@ -22,6 +22,9 @@ Compromised:
 Puppet:
 	forge test --match-test testExploit --match-contract Puppet
 
+PuppetV2:
+	forge test --match-test testExploit --match-contract PuppetV2
+
 FreeRider:
 	forge test --match-test testExploit --match-contract FreeRider
 
