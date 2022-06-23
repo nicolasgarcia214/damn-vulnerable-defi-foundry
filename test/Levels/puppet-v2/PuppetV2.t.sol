@@ -1,29 +1,24 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import {DSTest} from "ds-test/test.sol";
 import {Utilities} from "../../utils/Utilities.sol";
-import {console} from "../../utils/Console.sol";
-import {Vm} from "forge-std/Vm.sol";
-import {stdCheats} from "forge-std/stdlib.sol";
+import "forge-std/Test.sol";
 
-import {DamnValuableToken} from "../../../Contracts/DamnValuableToken.sol";
-import {WETH9} from "../../../Contracts/WETH9.sol";
+import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
+import {WETH9} from "../../../src/Contracts/WETH9.sol";
 
-import {PuppetV2Pool} from "../../../Contracts/puppet-v2/PuppetV2Pool.sol";
+import {PuppetV2Pool} from "../../../src/Contracts/puppet-v2/PuppetV2Pool.sol";
 
-import {IUniswapV2Router02, IUniswapV2Factory, IUniswapV2Pair} from "../../../Contracts/puppet-v2/Interfaces.sol";
+import {IUniswapV2Router02, IUniswapV2Factory, IUniswapV2Pair} from "../../../src/Contracts/puppet-v2/Interfaces.sol";
 
-contract PuppetV2 is DSTest, stdCheats {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
+contract PuppetV2 is Test {
     // Uniswap exchange will start with 100 DVT and 10 WETH in liquidity
     uint256 internal constant UNISWAP_INITIAL_TOKEN_RESERVE = 100e18;
-    uint256 internal constant UNISWAP_INITIAL_WETH_RESERVE = 10e18;
+    uint256 internal constant UNISWAP_INITIAL_WETH_RESERVE = 10 ether;
 
     // attacker will start with 10_000 DVT and 20 ETH
     uint256 internal constant ATTACKER_INITIAL_TOKEN_BALANCE = 10_000e18;
-    uint256 internal constant ATTACKER_INITIAL_ETH_BALANCE = 20e18;
+    uint256 internal constant ATTACKER_INITIAL_ETH_BALANCE = 20 ether;
 
     // pool will start with 1_000_000 DVT
     uint256 internal constant POOL_INITIAL_TOKEN_BALANCE = 1_000_000e18;
@@ -52,7 +47,6 @@ contract PuppetV2 is DSTest, stdCheats {
             address(uint160(uint256(keccak256(abi.encodePacked("deployer")))))
         );
         vm.label(deployer, "deployer");
-        vm.deal(deployer, UNISWAP_INITIAL_WETH_RESERVE);
 
         // Deploy token to be traded in Uniswap
         dvt = new DamnValuableToken();
@@ -92,8 +86,6 @@ contract PuppetV2 is DSTest, stdCheats {
             uniswapV2Factory.getPair(address(dvt), address(weth))
         );
 
-        assertEq(uniswapV2Pair.token0(), address(weth));
-        assertEq(uniswapV2Pair.token1(), address(dvt));
         assertGt(uniswapV2Pair.balanceOf(deployer), 0);
 
         // Deploy the lending pool
@@ -118,7 +110,7 @@ contract PuppetV2 is DSTest, stdCheats {
             puppetV2Pool.calculateDepositOfWETHRequired(
                 POOL_INITIAL_TOKEN_BALANCE
             ),
-            300000 ether
+            300_000 ether
         );
 
         console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");

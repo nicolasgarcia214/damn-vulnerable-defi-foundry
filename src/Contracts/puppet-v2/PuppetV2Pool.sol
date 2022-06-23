@@ -1,11 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.12;
 
-import {UniswapV2Library} from "uniswap-v2-periphery/UniswapV2Library.sol";
+import {UniswapV2Library} from "./UniswapV2Library.sol";
 
 interface IERC20 {
     function transfer(address to, uint256 amount) external returns (bool);
-    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+
     function balanceOf(address account) external returns (uint256);
 }
 
@@ -14,7 +20,6 @@ interface IERC20 {
  * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
  */
 contract PuppetV2Pool {
-
     address private _uniswapPair;
     address private _uniswapFactory;
     IERC20 private _token;
@@ -37,7 +42,7 @@ contract PuppetV2Pool {
         address tokenAddress,
         address uniswapPairAddress,
         address uniswapFactoryAddress
-    ) public {
+    ) {
         _weth = IERC20(wethAddress);
         _token = IERC20(tokenAddress);
         _uniswapPair = uniswapPairAddress;
@@ -50,8 +55,8 @@ contract PuppetV2Pool {
      *         Calculations assume that WETH and borrowed token have same amount of decimals.
      */
     function borrow(uint256 borrowAmount) external {
-
-        if(_token.balanceOf(address(this)) < borrowAmount) revert NotEnoughTokenBalance();
+        if (_token.balanceOf(address(this)) < borrowAmount)
+            revert NotEnoughTokenBalance();
 
         // Calculate how much WETH the user must deposit
         uint256 depositOfWETHRequired = calculateDepositOfWETHRequired(
