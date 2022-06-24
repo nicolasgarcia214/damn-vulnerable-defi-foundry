@@ -31,6 +31,9 @@ FreeRider:
 Backdoor:
 	forge test --match-test testExploit --match-contract Backdoor
 
+Climber:
+	forge test --match-test testExploit --match-contract Climber
+
 JuniorMiners:
 	forge test --match-test testExploit --match-contract JuniorMiners
 
