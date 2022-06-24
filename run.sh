@@ -51,9 +51,9 @@ case $1 in
     forge test --match-contract Backdoor
     ;;
 
-#  climber | 12 | clim)
-#    forge test --match-contract Climber
-#    ;;
+  climber | 12 | clim)
+    forge test --match-contract Climber
+    ;;
 
   junior-miners | 13 | juni)
     forge test --match-contract JuniorMiners
