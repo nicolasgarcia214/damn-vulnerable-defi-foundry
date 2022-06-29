@@ -1,5 +1,7 @@
 # Damn Vulnerable DeFi - Foundry Version ⚒️
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry)
+
 ![Github Actions][gha-badge] [![Telegram Support][tg-support-badge]][tg-support-url]
 
 [gha-badge]: https://img.shields.io/github/workflow/status/nicolasgarcia214/damn-vulnerable-defi-foundry/CI

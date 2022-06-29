@@ -1,0 +1,7 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - name: ⚒️ FOUNDRY & DEPENDENCIES INSTALLATION ⚒️
+    command: |
+      foundryup
+      forge install
