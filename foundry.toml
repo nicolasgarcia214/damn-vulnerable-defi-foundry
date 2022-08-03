@@ -1,5 +1,6 @@
 [default]
 verbosity = 2
+block_timestamp = 1
 
 ## set only when the `hardhat` profile is selected
 [hardhat]
