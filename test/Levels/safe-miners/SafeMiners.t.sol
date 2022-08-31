@@ -6,8 +6,8 @@ import "forge-std/Test.sol";
 
 import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
 
-contract JuniorMiners is Test {
-    uint256 internal constant DEPOSIT_TOKEN_AMOUNT = 2_000_000e18;
+contract SafeMiners is Test {
+    uint256 internal constant DEPOSIT_TOKEN_AMOUNT = 2_000_042e18;
     address internal constant DEPOSIT_ADDRESS =
         0x79658d35aB5c38B6b988C23D02e0410A380B8D5c;
 
