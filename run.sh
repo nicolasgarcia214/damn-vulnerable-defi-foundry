@@ -55,8 +55,8 @@ case $1 in
     forge test --match-contract Climber
     ;;
 
-  junior-miners | 13 | juni)
-    forge test --match-contract JuniorMiners
+  safe-miners | 13 | safe)
+    forge test --match-contract SafeMiners
     ;;
 
   *)
