@@ -36,6 +36,11 @@ contract Backdoor is Test {
         charlie = users[2];
         david = users[3];
 
+        vm.label(alice, "Alice");
+        vm.label(bob, "Bob");
+        vm.label(charlie, "Charlie");
+        vm.label(david, "David");
+
         attacker = payable(
             address(uint160(uint256(keccak256(abi.encodePacked("attacker")))))
         );
