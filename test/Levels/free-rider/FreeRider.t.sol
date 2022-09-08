@@ -149,7 +149,9 @@ contract FreeRider is Test {
 
     function testExploit() public {
         /** EXPLOIT START **/
+        vm.startPrank(attacker, attacker);
 
+        vm.stopPrank();
         /** EXPLOIT END **/
         validation();
     }
