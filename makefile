@@ -20,7 +20,7 @@ Compromised:
 	forge test --match-test testExploit --match-contract Compromised
 
 Puppet:
-	forge test --match-test testExploit --match-contract Puppet
+	forge test --match-test testExploit --match-contract Puppet$
 
 PuppetV2:
 	forge test --match-test testExploit --match-contract PuppetV2
