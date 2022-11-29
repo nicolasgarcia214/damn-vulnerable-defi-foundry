@@ -41,7 +41,6 @@ Advanced ways to use `foundryup`, and other documentation, can be found in the [
 git clone https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry.git
 cd damn-vulnerable-defi-foundry
 forge install
-yarn install
 ```
 3. **Code your solutions in the provided `[NAME_OF_THE_LEVEL].t.sol` files (inside each level's folder in the test folder)**
 4. **Run your exploit for a challenge**
@@ -63,4 +62,4 @@ If the challenge is executed successfully, you've passed!🙌🙌
 
 ### Preinstalled dependencies
 
-`ds-test` for testing, `forge-std` for better cheatcode UX, and `openzeppelin-contracts` for contract implementations. 
+`ds-test` for testing, `forge-std` for better cheatcode UX, and `openzeppelin-contracts` for contract implementations.

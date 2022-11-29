@@ -1,6 +1,6 @@
 {
     "editor.formatOnSave": true,
-    "solidity.formatter": "prettier",
+    "solidity.formatter": "forge",
     "[solidity]": {
         "editor.defaultFormatter": "JuanBlanco.solidity"
     }
