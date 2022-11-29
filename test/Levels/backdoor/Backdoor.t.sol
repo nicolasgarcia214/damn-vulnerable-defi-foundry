@@ -26,7 +26,9 @@ contract Backdoor is Test {
     address internal david;
 
     function setUp() public {
-        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
+        /**
+         * SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE
+         */
 
         utils = new Utilities();
         users = utils.createUsers(NUM_USERS);
@@ -41,9 +43,7 @@ contract Backdoor is Test {
         vm.label(charlie, "Charlie");
         vm.label(david, "David");
 
-        attacker = payable(
-            address(uint160(uint256(keccak256(abi.encodePacked("attacker")))))
-        );
+        attacker = payable(address(uint160(uint256(keccak256(abi.encodePacked("attacker"))))));
         vm.label(attacker, "Attacker");
 
         // Deploy Gnosis Safe master copy and factory contracts
@@ -72,18 +72,25 @@ contract Backdoor is Test {
         // Transfer tokens to be distributed to the registry
         dvt.transfer(address(walletRegistry), AMOUNT_TOKENS_DISTRIBUTED);
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {
-        /** SUCCESS CONDITIONS */
+        /**
+         * SUCCESS CONDITIONS
+         */
         for (uint256 i = 0; i < NUM_USERS; i++) {
             address wallet = walletRegistry.wallets(users[i]);
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
 import {ReentrancyGuard} from "openzeppelin-contracts/security/ReentrancyGuard.sol";
@@ -30,10 +30,7 @@ contract FreeRiderNFTMarketplace is ReentrancyGuard {
         }
     }
 
-    function offerMany(uint256[] calldata tokenIds, uint256[] calldata prices)
-        external
-        nonReentrant
-    {
+    function offerMany(uint256[] calldata tokenIds, uint256[] calldata prices) external nonReentrant {
         require(tokenIds.length > 0 && tokenIds.length == prices.length);
         for (uint256 i = 0; i < tokenIds.length; i++) {
             _offerOne(tokenIds[i], prices[i]);
@@ -43,14 +40,10 @@ contract FreeRiderNFTMarketplace is ReentrancyGuard {
     function _offerOne(uint256 tokenId, uint256 price) private {
         require(price > 0, "Price must be greater than zero");
 
-        require(
-            msg.sender == token.ownerOf(tokenId),
-            "Account offering must be the owner"
-        );
+        require(msg.sender == token.ownerOf(tokenId), "Account offering must be the owner");
 
         require(
-            token.getApproved(tokenId) == address(this) ||
-                token.isApprovedForAll(msg.sender, address(this)),
+            token.getApproved(tokenId) == address(this) || token.isApprovedForAll(msg.sender, address(this)),
             "Account offering must have approved transfer"
         );
 
@@ -61,11 +54,7 @@ contract FreeRiderNFTMarketplace is ReentrancyGuard {
         emit NFTOffered(msg.sender, tokenId, price);
     }
 
-    function buyMany(uint256[] calldata tokenIds)
-        external
-        payable
-        nonReentrant
-    {
+    function buyMany(uint256[] calldata tokenIds) external payable nonReentrant {
         for (uint256 i = 0; i < tokenIds.length; i++) {
             _buyOne(tokenIds[i]);
         }

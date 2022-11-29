@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {RewardToken} from "./RewardToken.sol";
 import {DamnValuableToken} from "../DamnValuableToken.sol";
@@ -52,19 +52,14 @@ contract TheRewarderPool {
         accToken.mint(msg.sender, amountToDeposit);
         distributeRewards();
 
-        if (
-            !liquidityToken.transferFrom(
-                msg.sender,
-                address(this),
-                amountToDeposit
-            )
-        ) revert TransferFail();
+        if (!liquidityToken.transferFrom(msg.sender, address(this), amountToDeposit)) revert TransferFail();
     }
 
     function withdraw(uint256 amountToWithdraw) external {
         accToken.burn(msg.sender, amountToWithdraw);
-        if (!liquidityToken.transfer(msg.sender, amountToWithdraw))
+        if (!liquidityToken.transfer(msg.sender, amountToWithdraw)) {
             revert TransferFail();
+        }
     }
 
     function distributeRewards() public returns (uint256) {
@@ -74,16 +69,11 @@ contract TheRewarderPool {
             _recordSnapshot();
         }
 
-        uint256 totalDeposits = accToken.totalSupplyAt(
-            lastSnapshotIdForRewards
-        );
-        uint256 amountDeposited = accToken.balanceOfAt(
-            msg.sender,
-            lastSnapshotIdForRewards
-        );
+        uint256 totalDeposits = accToken.totalSupplyAt(lastSnapshotIdForRewards);
+        uint256 amountDeposited = accToken.balanceOfAt(msg.sender, lastSnapshotIdForRewards);
 
         if (amountDeposited > 0 && totalDeposits > 0) {
-            rewards = (amountDeposited * 100 * 10**18) / totalDeposits;
+            rewards = (amountDeposited * 100 * 10 ** 18) / totalDeposits;
 
             if (rewards > 0 && !_hasRetrievedReward(msg.sender)) {
                 rewardToken.mint(msg.sender, rewards);
@@ -101,15 +91,13 @@ contract TheRewarderPool {
     }
 
     function _hasRetrievedReward(address account) private view returns (bool) {
-        return (lastRewardTimestamps[account] >=
-            lastRecordedSnapshotTimestamp &&
-            lastRewardTimestamps[account] <=
-            lastRecordedSnapshotTimestamp + REWARDS_ROUND_MIN_DURATION);
+        return (
+            lastRewardTimestamps[account] >= lastRecordedSnapshotTimestamp
+                && lastRewardTimestamps[account] <= lastRecordedSnapshotTimestamp + REWARDS_ROUND_MIN_DURATION
+        );
     }
 
     function isNewRewardsRound() public view returns (bool) {
-        return
-            block.timestamp >=
-            lastRecordedSnapshotTimestamp + REWARDS_ROUND_MIN_DURATION;
+        return block.timestamp >= lastRecordedSnapshotTimestamp + REWARDS_ROUND_MIN_DURATION;
     }
 }

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {ReentrancyGuard} from "openzeppelin-contracts/security/ReentrancyGuard.sol";
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
@@ -30,11 +30,10 @@ contract FlashLoanerPool is ReentrancyGuard {
 
         liquidityToken.transfer(msg.sender, amount);
 
-        msg.sender.functionCall(
-            abi.encodeWithSignature("receiveFlashLoan(uint256)", amount)
-        );
+        msg.sender.functionCall(abi.encodeWithSignature("receiveFlashLoan(uint256)", amount));
 
-        if (liquidityToken.balanceOf(address(this)) < balanceBefore)
+        if (liquidityToken.balanceOf(address(this)) < balanceBefore) {
             revert FlashLoanHasNotBeenPaidBack();
+        }
     }
 }

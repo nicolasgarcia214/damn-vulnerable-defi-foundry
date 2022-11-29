@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
 
@@ -25,8 +25,9 @@ contract FlashLoanReceiver {
 
         uint256 amountToBeRepaid = msg.value + fee;
 
-        if (address(this).balance < amountToBeRepaid)
+        if (address(this).balance < amountToBeRepaid) {
             revert CannotBorrowThatMuch();
+        }
 
         _executeActionDuringFlashLoan();
 

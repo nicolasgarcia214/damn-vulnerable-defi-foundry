@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
 import {ReentrancyGuard} from "openzeppelin-contracts/security/ReentrancyGuard.sol";
@@ -50,13 +50,15 @@ contract Exchange is ReentrancyGuard {
 
     function sellOne(uint256 tokenId) external nonReentrant {
         if (msg.sender != token.ownerOf(tokenId)) revert SellerMustBeTheOwner();
-        if (token.getApproved(tokenId) != address(this))
+        if (token.getApproved(tokenId) != address(this)) {
             revert SellerMustHaveApprovedTransfer();
+        }
 
         // Price should be in [wei / NFT]
         uint256 currentPriceInWei = oracle.getMedianPrice(token.symbol());
-        if (address(this).balance < currentPriceInWei)
+        if (address(this).balance < currentPriceInWei) {
             revert NotEnoughETHInBalance();
+        }
 
         token.transferFrom(msg.sender, address(this), tokenId);
         token.burn(tokenId);

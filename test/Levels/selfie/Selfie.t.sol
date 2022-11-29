@@ -40,14 +40,19 @@ contract Selfie is Test {
 
         assertEq(dvtSnapshot.balanceOf(address(selfiePool)), TOKENS_IN_POOL);
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {

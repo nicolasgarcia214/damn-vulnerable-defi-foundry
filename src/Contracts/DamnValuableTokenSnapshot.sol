@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {ERC20Snapshot, ERC20} from "openzeppelin-contracts/token/ERC20/extensions/ERC20Snapshot.sol";
 
@@ -19,11 +19,7 @@ contract DamnValuableTokenSnapshot is ERC20Snapshot {
         return lastSnapshotId;
     }
 
-    function getBalanceAtLastSnapshot(address account)
-        external
-        view
-        returns (uint256)
-    {
+    function getBalanceAtLastSnapshot(address account) external view returns (uint256) {
         return balanceOfAt(account, lastSnapshotId);
     }
 

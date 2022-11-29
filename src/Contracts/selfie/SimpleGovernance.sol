@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {DamnValuableTokenSnapshot} from "../DamnValuableTokenSnapshot.sol";
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
@@ -34,21 +34,19 @@ contract SimpleGovernance {
     error CannotExecuteThisAction();
 
     constructor(address governanceTokenAddress) {
-        if (governanceTokenAddress == address(0))
+        if (governanceTokenAddress == address(0)) {
             revert GovernanceTokenCannotBeZeroAddress();
+        }
 
         governanceToken = DamnValuableTokenSnapshot(governanceTokenAddress);
         actionCounter = 1;
     }
 
-    function queueAction(
-        address receiver,
-        bytes calldata data,
-        uint256 weiAmount
-    ) external returns (uint256) {
+    function queueAction(address receiver, bytes calldata data, uint256 weiAmount) external returns (uint256) {
         if (!_hasEnoughVotes(msg.sender)) revert NotEnoughVotesToPropose();
-        if (receiver == address(this))
+        if (receiver == address(this)) {
             revert CannotQueueActionsThatAffectGovernance();
+        }
 
         uint256 actionId = actionCounter;
 
@@ -70,10 +68,7 @@ contract SimpleGovernance {
         GovernanceAction storage actionToExecute = actions[actionId];
         actionToExecute.executedAt = block.timestamp;
 
-        actionToExecute.receiver.functionCallWithValue(
-            actionToExecute.data,
-            actionToExecute.weiAmount
-        );
+        actionToExecute.receiver.functionCallWithValue(actionToExecute.data, actionToExecute.weiAmount);
 
         emit ActionExecuted(actionId, msg.sender);
     }
@@ -89,15 +84,14 @@ contract SimpleGovernance {
      */
     function _canBeExecuted(uint256 actionId) private view returns (bool) {
         GovernanceAction memory actionToExecute = actions[actionId];
-        return (actionToExecute.executedAt == 0 &&
-            (block.timestamp - actionToExecute.proposedAt >=
-                ACTION_DELAY_IN_SECONDS));
+        return (
+            actionToExecute.executedAt == 0 && (block.timestamp - actionToExecute.proposedAt >= ACTION_DELAY_IN_SECONDS)
+        );
     }
 
     function _hasEnoughVotes(address account) private view returns (bool) {
         uint256 balance = governanceToken.getBalanceAtLastSnapshot(account);
-        uint256 halfTotalSupply = governanceToken
-            .getTotalSupplyAtLastSnapshot() / 2;
+        uint256 halfTotalSupply = governanceToken.getTotalSupplyAtLastSnapshot() / 2;
         return balance > halfTotalSupply;
     }
 }

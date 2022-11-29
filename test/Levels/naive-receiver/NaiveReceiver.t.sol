@@ -27,10 +27,7 @@ contract NaiveReceiver is Test {
         vm.label(attacker, "Attacker");
 
         naiveReceiverLenderPool = new NaiveReceiverLenderPool();
-        vm.label(
-            address(naiveReceiverLenderPool),
-            "Naive Receiver Lender Pool"
-        );
+        vm.label(address(naiveReceiverLenderPool), "Naive Receiver Lender Pool");
         vm.deal(address(naiveReceiverLenderPool), ETHER_IN_POOL);
 
         assertEq(address(naiveReceiverLenderPool).balance, ETHER_IN_POOL);
@@ -44,22 +41,24 @@ contract NaiveReceiver is Test {
 
         assertEq(address(flashLoanReceiver).balance, ETHER_IN_RECEIVER);
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {
         // All ETH has been drained from the receiver
         assertEq(address(flashLoanReceiver).balance, 0);
-        assertEq(
-            address(naiveReceiverLenderPool).balance,
-            ETHER_IN_POOL + ETHER_IN_RECEIVER
-        );
+        assertEq(address(naiveReceiverLenderPool).balance, ETHER_IN_POOL + ETHER_IN_RECEIVER);
     }
 }

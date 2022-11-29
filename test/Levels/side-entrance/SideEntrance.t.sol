@@ -29,14 +29,19 @@ contract SideEntrance is Test {
 
         attackerInitialEthBalance = address(attacker).balance;
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {

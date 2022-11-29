@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {AccessControl} from "openzeppelin-contracts/access/AccessControl.sol";
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
@@ -45,11 +45,7 @@ contract ClimberTimelock is AccessControl {
         _setupRole(PROPOSER_ROLE, proposer);
     }
 
-    function getOperationState(bytes32 id)
-        public
-        view
-        returns (OperationState)
-    {
+    function getOperationState(bytes32 id) public view returns (OperationState) {
         Operation memory op = operations[id];
 
         if (op.executed) {
@@ -83,22 +79,19 @@ contract ClimberTimelock is AccessControl {
         require(targets.length == dataElements.length);
 
         bytes32 id = getOperationId(targets, values, dataElements, salt);
-        require(
-            getOperationState(id) == OperationState.Unknown,
-            "Operation already known"
-        );
+        require(getOperationState(id) == OperationState.Unknown, "Operation already known");
 
         operations[id].readyAtTimestamp = uint64(block.timestamp) + delay;
         operations[id].known = true;
     }
 
-    /** Anyone can execute what has been scheduled via `schedule` */
-    function execute(
-        address[] calldata targets,
-        uint256[] calldata values,
-        bytes[] calldata dataElements,
-        bytes32 salt
-    ) external payable {
+    /**
+     * Anyone can execute what has been scheduled via `schedule`
+     */
+    function execute(address[] calldata targets, uint256[] calldata values, bytes[] calldata dataElements, bytes32 salt)
+        external
+        payable
+    {
         require(targets.length > 0, "Must provide at least one target");
         require(targets.length == values.length);
         require(targets.length == dataElements.length);

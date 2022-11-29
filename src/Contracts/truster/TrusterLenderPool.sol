@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {IERC20} from "openzeppelin-contracts/token/ERC20/IERC20.sol";
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
@@ -21,12 +21,10 @@ contract TrusterLenderPool is ReentrancyGuard {
         damnValuableToken = IERC20(tokenAddress);
     }
 
-    function flashLoan(
-        uint256 borrowAmount,
-        address borrower,
-        address target,
-        bytes calldata data
-    ) external nonReentrant {
+    function flashLoan(uint256 borrowAmount, address borrower, address target, bytes calldata data)
+        external
+        nonReentrant
+    {
         uint256 balanceBefore = damnValuableToken.balanceOf(address(this));
         if (balanceBefore < borrowAmount) revert NotEnoughTokensInPool();
 

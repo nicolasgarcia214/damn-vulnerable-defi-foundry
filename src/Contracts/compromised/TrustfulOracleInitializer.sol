@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {TrustfulOracle} from "./TrustfulOracle.sol";
 
@@ -12,11 +12,7 @@ contract TrustfulOracleInitializer {
 
     TrustfulOracle public oracle;
 
-    constructor(
-        address[] memory sources,
-        string[] memory symbols,
-        uint256[] memory initialPrices
-    ) {
+    constructor(address[] memory sources, string[] memory symbols, uint256[] memory initialPrices) {
         oracle = new TrustfulOracle(sources, true);
         oracle.setupInitialPrices(sources, symbols, initialPrices);
         emit NewTrustfulOracle(address(oracle));

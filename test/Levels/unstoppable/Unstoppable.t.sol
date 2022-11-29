@@ -20,7 +20,9 @@ contract Unstoppable is Test {
     address payable internal someUser;
 
     function setUp() public {
-        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
+        /**
+         * SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE
+         */
 
         utils = new Utilities();
         address payable[] memory users = utils.createUsers(2);
@@ -51,14 +53,19 @@ contract Unstoppable is Test {
         vm.label(address(receiverUnstoppable), "Receiver Unstoppable");
         receiverUnstoppable.executeFlashLoan(10);
         vm.stopPrank();
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT START *
+         */
+        /**
+         * EXPLOIT END *
+         */
         vm.expectRevert(UnstoppableLender.AssertionViolated.selector);
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {

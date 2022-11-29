@@ -8,15 +8,16 @@ import {DamnValuableToken} from "../../../src/Contracts/DamnValuableToken.sol";
 
 contract SafeMiners is Test {
     uint256 internal constant DEPOSIT_TOKEN_AMOUNT = 2_000_042e18;
-    address internal constant DEPOSIT_ADDRESS =
-        0x79658d35aB5c38B6b988C23D02e0410A380B8D5c;
+    address internal constant DEPOSIT_ADDRESS = 0x79658d35aB5c38B6b988C23D02e0410A380B8D5c;
 
     Utilities internal utils;
     DamnValuableToken internal dvt;
     address payable internal attacker;
 
     function setUp() public {
-        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
+        /**
+         * SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE
+         */
         utils = new Utilities();
         address payable[] memory users = utils.createUsers(1);
         attacker = users[0];
@@ -33,18 +34,25 @@ contract SafeMiners is Test {
         assertEq(dvt.balanceOf(DEPOSIT_ADDRESS), DEPOSIT_TOKEN_AMOUNT);
         assertEq(dvt.balanceOf(attacker), 0);
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {
-        /** SUCCESS CONDITIONS */
+        /**
+         * SUCCESS CONDITIONS
+         */
         // The attacker took all tokens available in the deposit address
         assertEq(dvt.balanceOf(DEPOSIT_ADDRESS), 0);
         assertEq(dvt.balanceOf(attacker), DEPOSIT_TOKEN_AMOUNT);

@@ -58,10 +58,7 @@ contract TheRewarder is Test {
             vm.startPrank(users[i]);
             dvt.approve(address(theRewarderPool), USER_DEPOSIT);
             theRewarderPool.deposit(USER_DEPOSIT);
-            assertEq(
-                theRewarderPool.accToken().balanceOf(users[i]),
-                USER_DEPOSIT
-            );
+            assertEq(theRewarderPool.accToken().balanceOf(users[i]), USER_DEPOSIT);
             vm.stopPrank();
         }
 
@@ -84,14 +81,19 @@ contract TheRewarder is Test {
         assertEq(dvt.balanceOf(attacker), 0); // Attacker starts with zero DVT tokens in balance
         assertEq(theRewarderPool.roundNumber(), 2); // Two rounds should have occurred so far
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {
@@ -100,17 +102,13 @@ contract TheRewarder is Test {
             // Users should get negligible rewards this round
             vm.prank(users[i]);
             theRewarderPool.distributeRewards();
-            uint256 rewardPerUser = theRewarderPool.rewardToken().balanceOf(
-                users[i]
-            );
+            uint256 rewardPerUser = theRewarderPool.rewardToken().balanceOf(users[i]);
             uint256 delta = rewardPerUser - 25e18;
             assertLt(delta, 1e16);
         }
         // Rewards must have been issued to the attacker account
         assertGt(theRewarderPool.rewardToken().totalSupply(), 100e18);
-        uint256 rewardAttacker = theRewarderPool.rewardToken().balanceOf(
-            attacker
-        );
+        uint256 rewardAttacker = theRewarderPool.rewardToken().balanceOf(attacker);
 
         // The amount of rewards earned should be really close to 100 tokens
         uint256 deltaAttacker = 100e18 - rewardAttacker;

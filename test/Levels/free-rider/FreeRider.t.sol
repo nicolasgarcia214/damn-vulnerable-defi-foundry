@@ -37,26 +37,19 @@ contract FreeRider is Test {
     address payable internal deployer;
 
     function setUp() public {
-        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
-        buyer = payable(
-            address(uint160(uint256(keccak256(abi.encodePacked("buyer")))))
-        );
+        /**
+         * SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE
+         */
+        buyer = payable(address(uint160(uint256(keccak256(abi.encodePacked("buyer"))))));
         vm.label(buyer, "buyer");
         vm.deal(buyer, BUYER_PAYOUT);
 
-        deployer = payable(
-            address(uint160(uint256(keccak256(abi.encodePacked("deployer")))))
-        );
+        deployer = payable(address(uint160(uint256(keccak256(abi.encodePacked("deployer"))))));
         vm.label(deployer, "deployer");
-        vm.deal(
-            deployer,
-            UNISWAP_INITIAL_WETH_RESERVE + MARKETPLACE_INITIAL_ETH_BALANCE
-        );
+        vm.deal(deployer, UNISWAP_INITIAL_WETH_RESERVE + MARKETPLACE_INITIAL_ETH_BALANCE);
 
         // Attacker starts with little ETH balance
-        attacker = payable(
-            address(uint160(uint256(keccak256(abi.encodePacked("attacker")))))
-        );
+        attacker = payable(address(uint160(uint256(keccak256(abi.encodePacked("attacker"))))));
         vm.label(attacker, "Attacker");
         vm.deal(attacker, 0.5 ether);
 
@@ -70,17 +63,12 @@ contract FreeRider is Test {
         vm.label(address(dvt), "DVT");
 
         // Deploy Uniswap Factory and Router
-        uniswapV2Factory = IUniswapV2Factory(
-            deployCode(
-                "./src/build-uniswap/v2/UniswapV2Factory.json",
-                abi.encode(address(0))
-            )
-        );
+        uniswapV2Factory =
+            IUniswapV2Factory(deployCode("./src/build-uniswap/v2/UniswapV2Factory.json", abi.encode(address(0))));
 
         uniswapV2Router = IUniswapV2Router02(
             deployCode(
-                "./src/build-uniswap/v2/UniswapV2Router02.json",
-                abi.encode(address(uniswapV2Factory), address(weth))
+                "./src/build-uniswap/v2/UniswapV2Router02.json", abi.encode(address(uniswapV2Factory), address(weth))
             )
         );
 
@@ -97,9 +85,7 @@ contract FreeRider is Test {
         );
 
         // Get a reference to the created Uniswap pair
-        uniswapV2Pair = IUniswapV2Pair(
-            uniswapV2Factory.getPair(address(dvt), address(weth))
-        );
+        uniswapV2Pair = IUniswapV2Pair(uniswapV2Factory.getPair(address(dvt), address(weth)));
 
         assertEq(uniswapV2Pair.token0(), address(dvt));
         assertEq(uniswapV2Pair.token1(), address(weth));
@@ -115,14 +101,11 @@ contract FreeRider is Test {
             assertEq(damnValuableNFT.ownerOf(id), deployer);
         }
 
-        damnValuableNFT.setApprovalForAll(
-            address(freeRiderNFTMarketplace),
-            true
-        );
+        damnValuableNFT.setApprovalForAll(address(freeRiderNFTMarketplace), true);
 
         uint256[] memory NFTsForSell = new uint256[](6);
         uint256[] memory NFTsPrices = new uint256[](6);
-        for (uint8 i = 0; i < AMOUNT_OF_NFTS; ) {
+        for (uint8 i = 0; i < AMOUNT_OF_NFTS;) {
             NFTsForSell[i] = i;
             NFTsPrices[i] = NFT_PRICE;
             unchecked {
@@ -144,20 +127,27 @@ contract FreeRider is Test {
 
         vm.stopPrank();
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
         vm.startPrank(attacker, attacker);
 
         vm.stopPrank();
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {
-        /** SUCCESS CONDITIONS */
+        /**
+         * SUCCESS CONDITIONS
+         */
 
         // Attacker must have earned all ETH from the payout
         assertGt(attacker.balance, BUYER_PAYOUT);
@@ -166,20 +156,13 @@ contract FreeRider is Test {
         // The buyer extracts all NFTs from its associated contract
         vm.startPrank(buyer);
         for (uint256 tokenId = 0; tokenId < AMOUNT_OF_NFTS; tokenId++) {
-            damnValuableNFT.transferFrom(
-                address(freeRiderBuyer),
-                buyer,
-                tokenId
-            );
+            damnValuableNFT.transferFrom(address(freeRiderBuyer), buyer, tokenId);
             assertEq(damnValuableNFT.ownerOf(tokenId), buyer);
         }
         vm.stopPrank();
 
         // Exchange must have lost NFTs and ETH
         assertEq(freeRiderNFTMarketplace.amountOfOffers(), 0);
-        assertLt(
-            address(freeRiderNFTMarketplace).balance,
-            MARKETPLACE_INITIAL_ETH_BALANCE
-        );
+        assertLt(address(freeRiderNFTMarketplace).balance, MARKETPLACE_INITIAL_ETH_BALANCE);
     }
 }

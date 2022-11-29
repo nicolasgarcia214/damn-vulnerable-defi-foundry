@@ -24,7 +24,9 @@ contract Climber is Test {
     address payable internal attacker;
 
     function setUp() public {
-        /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
+        /**
+         * SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE
+         */
 
         utils = new Utilities();
         users = utils.createUsers(3);
@@ -33,9 +35,7 @@ contract Climber is Test {
         proposer = payable(users[1]);
         sweeper = payable(users[2]);
 
-        attacker = payable(
-            address(uint160(uint256(keccak256(abi.encodePacked("attacker")))))
-        );
+        attacker = payable(address(uint160(uint256(keccak256(abi.encodePacked("attacker"))))));
         vm.label(attacker, "Attacker");
         vm.deal(attacker, 0.1 ether);
 
@@ -44,57 +44,46 @@ contract Climber is Test {
         climberImplementation = new ClimberVault();
         vm.label(address(climberImplementation), "climber Implementation");
 
-        bytes memory data = abi.encodeWithSignature(
-            "initialize(address,address,address)",
-            deployer,
-            proposer,
-            sweeper
-        );
+        bytes memory data = abi.encodeWithSignature("initialize(address,address,address)", deployer, proposer, sweeper);
         climberVaultProxy = new ERC1967Proxy(
             address(climberImplementation),
             data
         );
 
-        assertEq(
-            ClimberVault(address(climberVaultProxy)).getSweeper(),
-            sweeper
-        );
+        assertEq(ClimberVault(address(climberVaultProxy)).getSweeper(), sweeper);
 
-        assertGt(
-            ClimberVault(address(climberVaultProxy))
-                .getLastWithdrawalTimestamp(),
-            0
-        );
+        assertGt(ClimberVault(address(climberVaultProxy)).getLastWithdrawalTimestamp(), 0);
 
-        climberTimelock = ClimberTimelock(
-            payable(ClimberVault(address(climberVaultProxy)).owner())
-        );
+        climberTimelock = ClimberTimelock(payable(ClimberVault(address(climberVaultProxy)).owner()));
 
-        assertTrue(
-            climberTimelock.hasRole(climberTimelock.PROPOSER_ROLE(), proposer)
-        );
+        assertTrue(climberTimelock.hasRole(climberTimelock.PROPOSER_ROLE(), proposer));
 
-        assertTrue(
-            climberTimelock.hasRole(climberTimelock.ADMIN_ROLE(), deployer)
-        );
+        assertTrue(climberTimelock.hasRole(climberTimelock.ADMIN_ROLE(), deployer));
 
         // Deploy token and transfer initial token balance to the vault
         dvt = new DamnValuableToken();
         vm.label(address(dvt), "DVT");
         dvt.transfer(address(climberVaultProxy), VAULT_TOKEN_BALANCE);
 
-        console.log(unicode"🧨 PREPARED TO BREAK THINGS 🧨");
+        console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
     function testExploit() public {
-        /** EXPLOIT START **/
+        /**
+         * EXPLOIT START *
+         */
 
-        /** EXPLOIT END **/
+        /**
+         * EXPLOIT END *
+         */
         validation();
+        console.log(unicode"\n🎉 Congratulations, you can go to the next level! 🎉");
     }
 
     function validation() internal {
-        /** SUCCESS CONDITIONS */
+        /**
+         * SUCCESS CONDITIONS
+         */
         assertEq(dvt.balanceOf(attacker), VAULT_TOKEN_BALANCE);
         assertEq(dvt.balanceOf(address(climberVaultProxy)), 0);
     }

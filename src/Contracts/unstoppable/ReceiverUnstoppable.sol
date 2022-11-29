@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.12;
+pragma solidity 0.8.17;
 
 import {UnstoppableLender} from "./UnstoppableLender.sol";
 import {IERC20} from "openzeppelin-contracts/token/ERC20/IERC20.sol";
@@ -11,6 +11,7 @@ import {SafeERC20} from "openzeppelin-contracts/token/ERC20/utils/SafeERC20.sol"
  */
 contract ReceiverUnstoppable {
     using SafeERC20 for IERC20;
+
     UnstoppableLender private immutable pool;
     address private immutable owner;
 

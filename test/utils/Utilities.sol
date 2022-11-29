@@ -14,10 +14,7 @@ contract Utilities is Test {
     }
 
     /// @notice create users with 100 ether balance
-    function createUsers(uint256 userNum)
-        external
-        returns (address payable[] memory)
-    {
+    function createUsers(uint256 userNum) external returns (address payable[] memory) {
         address payable[] memory users = new address payable[](userNum);
         for (uint256 i = 0; i < userNum; i++) {
             address payable user = this.getNextUserAddress();
