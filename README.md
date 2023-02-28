@@ -22,7 +22,7 @@ Throughout numerous challenges you will build the skills to become a bug hunter 
 
 ## Solutions
 
-Solutions are stored in the `solutions` branch!
+Solutions are stored in the [solutions](https://github.com/ShameDAO/damn-vulnerable-defi-foundry/tree/solutions) branch!
 
 1.  -   [x] Unstoppable
 2.  -   [x] Naive receiver
