@@ -1,4 +1,4 @@
-# Damn Vulnerable DeFi - Foundry Version ⚒️
+# Damn Vulnerable DeFi - Foundry Version - Shame's Solutions ⚒️
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nicolasgarcia214/damn-vulnerable-defi-foundry)
 
@@ -18,6 +18,9 @@ Visit [damnvulnerabledefi.xyz](https://damnvulnerabledefi.xyz)
 Damn Vulnerable DeFi is the wargame to learn offensive security of DeFi smart contracts.
 
 Throughout numerous challenges you will build the skills to become a bug hunter or security auditor in the space. 🕵️‍♂️
+
+## Solutions
+Solutions are stored in the `solutions` branch!
 
 ## How To Play 🕹️
 
