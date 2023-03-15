@@ -34,7 +34,6 @@ Then, in a new terminal session or after reloading your PATH, run it to get the 
 ``` console
 foundryup
 ```
-Advanced ways to use `foundryup`, and other documentation, can be found in the [foundryup package](./foundryup/README.md)
 
 2. **Clone This Repo and install dependencies**
 ``` 
@@ -57,7 +56,7 @@ If the challenge is executed successfully, you've passed!🙌🙌
 
 ### Tips and tricks ✨
 - In all challenges you must use the account called attacker. In Forge, you can use the [cheat code](https://github.com/gakonst/foundry/tree/master/forge#cheat-codes) `prank` or `startPrank`.
-- To code the solutions, you may need to refer to [Forge docs](https://onbjerg.github.io/foundry-book/forge/index.html).
+- To code the solutions, you may need to refer to the [Foundry Book](https://book.getfoundry.sh/).
 - In some cases, you may need to code and deploy custom smart contracts.
 
 ### Preinstalled dependencies
