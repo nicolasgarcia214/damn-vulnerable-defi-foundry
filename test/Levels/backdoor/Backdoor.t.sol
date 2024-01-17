@@ -57,12 +57,7 @@ contract Backdoor is Test {
         vm.label(address(dvt), "DVT");
 
         // Deploy the registry
-        walletRegistry = new WalletRegistry(
-            address(masterCopy),
-            address(walletFactory),
-            address(dvt),
-            users
-        );
+        walletRegistry = new WalletRegistry(address(masterCopy), address(walletFactory), address(dvt), users);
 
         // Users are registered as beneficiaries
         for (uint256 i = 0; i < NUM_USERS; i++) {

